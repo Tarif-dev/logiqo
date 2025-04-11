@@ -16,7 +16,7 @@ import {
   Calendar,
   Clock,
   ArrowRight,
-  Fire,
+  Flame,
   Brain,
   Zap,
   BarChart2,
@@ -83,7 +83,7 @@ export default function Dashboard() {
                   <div>
                     <div className="mb-1 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Fire size={16} className="text-red-500" />
+                        <Flame size={16} className="text-red-500" />
                         <span className="text-sm font-medium">
                           Daily Streak
                         </span>
