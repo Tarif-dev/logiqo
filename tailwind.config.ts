@@ -52,6 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				logiqo: {
+					blue: '#00AAFF',    // Neon blue
+					indigo: '#6E59F5',  // Electric indigo
+					mint: '#A8F0D0',    // Soft mint
+					dark: '#121220',    // Dark background
+					darker: '#0A0A14',  // Darker background for contrasts
+					light: '#F8FAFC',   // Light text color
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
