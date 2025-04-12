@@ -1049,6 +1049,8 @@ const Roadmap: React.FC = () => {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [selectedSubtopic, setSelectedSubtopic] = useState<SubTopic | null>(null);
   const [showSubtopics, setShowSubtopics] = useState<boolean>(false);
+  // Track active filter
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
 
   // Calculate overall progress
   const totalNodes = roadmapData.length;
@@ -1061,11 +1063,33 @@ const Roadmap: React.FC = () => {
     return roadmapData.filter(node => node.category === category);
   };
 
+  // Filter nodes by category
+  const getFilteredNodes = () => {
+    if (selectedFilter) {
+      return roadmapData.filter(node => node.category === selectedFilter);
+    }
+    return roadmapData;
+  };
+
   // Toggle category expansion
   const toggleCategory = (category: string) => {
+    // Set the filter instead of expanding
+    setSelectedFilter(selectedFilter === category ? null : category);
+    // Reset other states
+    setExpandedCategory(null);
+    setSelectedNode(null);
+    setHighlightedPath([]);
+    setSelectedSubtopic(null);
+    setShowSubtopics(false);
+  };
+
+  // Show detailed category
+  const showDetailedCategory = (category: string) => {
     setExpandedCategory(expandedCategory === category ? null : category);
     setSelectedNode(null);
     setHighlightedPath([]);
+    setSelectedSubtopic(null);
+    setShowSubtopics(false);
   };
 
   // Handle node click
@@ -1178,7 +1202,7 @@ const Roadmap: React.FC = () => {
                 {Object.values(CATEGORIES).map(category => (
                   <Badge 
                     key={category}
-                    variant={expandedCategory === category ? "default" : "outline"}
+                    variant={selectedFilter === category ? "default" : "outline"}
                     className="cursor-pointer px-3 py-1 text-xs font-medium"
                     onClick={() => toggleCategory(category)}
                   >
@@ -1197,9 +1221,9 @@ const Roadmap: React.FC = () => {
                   if (!fromNode || !toNode) return null;
                   
                   // Skip if not in the current category or connected to the current category
-                  if (expandedCategory && 
-                      fromNode.category !== expandedCategory && 
-                      toNode.category !== expandedCategory) {
+                  if (selectedFilter && 
+                      fromNode.category !== selectedFilter && 
+                      toNode.category !== selectedFilter) {
                     return null;
                   }
                   
@@ -1282,6 +1306,64 @@ const Roadmap: React.FC = () => {
                       </motion.div>
                     ))}
                   </div>
+                ) : selectedFilter ? (
+                  // Show filtered nodes
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {getNodesByCategory(selectedFilter).map((node, i) => (
+                      <motion.div
+                        id={`node-${node.id}`}
+                        key={node.id}
+                        custom={i}
+                        initial="hidden"
+                        animate="visible"
+                        variants={nodeVariants}
+                        onClick={() => handleNodeClick(node)}
+                        className={`cursor-pointer p-4 rounded-md border transition-all duration-300 ${
+                          selectedNode?.id === node.id 
+                            ? "ring-2 ring-primary ring-offset-2 shadow-lg transform scale-105 selected-node" 
+                            : "hover:shadow-md hover:translate-y-[-2px]"
+                        } ${
+                          node.status === "locked" ? "opacity-50" : ""
+                        } ${
+                          highlightedPath.includes(node.id) 
+                            ? "border-purple-500/50 bg-purple-500/5" 
+                            : "border-border/60 bg-card"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`flex h-10 w-10 items-center justify-center rounded-md ${getStatusColor(node.status)}`}>
+                            {node.status === "locked" ? (
+                              <Lock size={18} />
+                            ) : node.status === "completed" ? (
+                              <Check size={18} />
+                            ) : (
+                              <node.icon size={18} />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-sm font-medium">{node.title}</h3>
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{node.description}</p>
+                            <div className="mt-2 flex items-center gap-1.5 flex-wrap">
+                              <Badge variant="outline" className={`px-1.5 py-0 h-4 text-[10px] ${getDifficultyColor(node.difficulty)}`}>
+                                {node.difficulty}
+                              </Badge>
+                              {node.status !== "locked" && (
+                                <Badge variant="secondary" className="px-1.5 py-0 h-4 text-[10px]">
+                                  <Sparkles size={10} className="mr-0.5" />
+                                  {node.xpReward} XP
+                                </Badge>
+                              )}
+                              {node.subtopics && (
+                                <Badge variant="outline" className="px-1.5 py-0 h-4 text-[10px] bg-blue-500/10 text-blue-500 border-blue-500/20">
+                                  {node.subtopics.length} subtopics
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 ) : (
                   // Show all categories in a roadmap overview
                   <div className="space-y-6">
@@ -1293,7 +1375,10 @@ const Roadmap: React.FC = () => {
                         transition={{ delay: categoryIndex * 0.1 }}
                         className="space-y-3"
                       >
-                        <h3 className="text-sm font-medium flex items-center gap-2 cursor-pointer" onClick={() => toggleCategory(category)}>
+                        <h3 
+                          className="text-sm font-medium flex items-center gap-2 cursor-pointer" 
+                          onClick={() => showDetailedCategory(category)}
+                        >
                           <ChevronRight size={16} className="text-muted-foreground" />
                           {category}
                           <Badge className="ml-2 px-1.5 py-0 text-[10px]">
@@ -1334,7 +1419,7 @@ const Roadmap: React.FC = () => {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               className="flex items-center justify-center p-3 rounded-md border border-dashed border-border/60 cursor-pointer hover:border-border"
-                              onClick={() => toggleCategory(category)}
+                              onClick={() => showDetailedCategory(category)}
                             >
                               <span className="text-xs text-muted-foreground">+{getNodesByCategory(category).length - 3} more</span>
                             </motion.div>
