@@ -1046,12 +1046,27 @@ const roadmapConnections = [
 const Roadmap: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
   const [highlightedPath, setHighlightedPath] = useState<string[]>([]);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [selectedSubtopic, setSelectedSubtopic] = useState<SubTopic | null>(null);
+  const [showSubtopics, setShowSubtopics] = useState<boolean>(false);
 
   // Calculate overall progress
   const totalNodes = roadmapData.length;
   const completedNodes = roadmapData.filter(node => node.status === "completed").length;
   const inProgressNodes = roadmapData.filter(node => node.status === "in-progress").length;
   const progressPercentage = Math.round((completedNodes / totalNodes) * 100);
+
+  // Get nodes by category helper function
+  const getNodesByCategory = (category: string) => {
+    return roadmapData.filter(node => node.category === category);
+  };
+
+  // Toggle category expansion
+  const toggleCategory = (category: string) => {
+    setExpandedCategory(expandedCategory === category ? null : category);
+    setSelectedNode(null);
+    setHighlightedPath([]);
+  };
 
   // Handle node click
   const handleNodeClick = (node: RoadmapNode) => {
