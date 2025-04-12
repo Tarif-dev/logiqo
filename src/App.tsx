@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import Roadmap from "./pages/Roadmap";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/roadmap" element={<NotFound />} />
+          <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/playground" element={<NotFound />} />
           <Route path="/challenges" element={<NotFound />} />
           <Route path="/community" element={<NotFound />} />
