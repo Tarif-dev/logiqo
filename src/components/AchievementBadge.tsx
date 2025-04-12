@@ -3,7 +3,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { 
   Trophy, Award, Star, Zap, Target, 
-  Brain, Rocket, CheckCircle, FireExtinguisher,
+  Brain, Rocket, CheckCircle, Flame,
   Code, Cpu
 } from "lucide-react";
 import {
@@ -30,75 +30,63 @@ interface BadgeConfig {
   icon: React.ReactNode;
   name: string;
   description: string;
-  color: string;
 }
 
 const badgeConfigs: Record<BadgeType, BadgeConfig> = {
   streak: {
-    icon: <FireExtinguisher size={24} />,
+    icon: <Flame size={18} />,
     name: "Consistent Learner",
     description: "Maintain a learning streak",
-    color: "from-orange-500 to-amber-500",
   },
   completion: {
-    icon: <CheckCircle size={24} />,
+    icon: <CheckCircle size={18} />,
     name: "Completionist",
     description: "Complete all lessons in a module",
-    color: "from-green-500 to-emerald-500",
   },
   speed: {
-    icon: <Zap size={24} />,
+    icon: <Zap size={18} />,
     name: "Speed Demon",
     description: "Solve problems in record time",
-    color: "from-yellow-400 to-yellow-600",
   },
   accuracy: {
-    icon: <Target size={24} />,
+    icon: <Target size={18} />,
     name: "Precision Coder",
     description: "Achieve high accuracy in challenges",
-    color: "from-blue-500 to-sky-500",
   },
   "problem-solver": {
-    icon: <Brain size={24} />,
+    icon: <Brain size={18} />,
     name: "Problem Solver",
     description: "Solve a large number of problems",
-    color: "from-violet-500 to-purple-600",
   },
   genius: {
-    icon: <Brain size={24} />,
+    icon: <Brain size={18} />,
     name: "DSA Genius",
     description: "Master complex algorithms",
-    color: "from-indigo-500 to-blue-600",
   },
   "contest-winner": {
-    icon: <Trophy size={24} />,
+    icon: <Trophy size={18} />,
     name: "Contest Winner",
     description: "Win a coding contest",
-    color: "from-amber-400 to-yellow-500",
   },
   explorer: {
-    icon: <Rocket size={24} />,
+    icon: <Rocket size={18} />,
     name: "Explorer",
     description: "Try out all platform features",
-    color: "from-pink-500 to-rose-500",
   },
   "first-time": {
-    icon: <Star size={24} />,
+    icon: <Star size={18} />,
     name: "First Steps",
     description: "Complete your first challenge",
-    color: "from-cyan-400 to-teal-500",
   },
   "debug-master": {
-    icon: <Code size={24} />,
+    icon: <Code size={18} />,
     name: "Debug Master",
     description: "Fix a significant number of bugs",
-    color: "from-red-500 to-pink-600",
   },
   "algorithm-master": {
-    icon: <Cpu size={24} />,
+    icon: <Cpu size={18} />,
     name: "Algorithm Master",
     description: "Master a specific algorithm category",
-    color: "from-emerald-500 to-teal-600",
   },
 };
 
@@ -122,45 +110,33 @@ export function AchievementBadge({
   const config = badgeConfigs[type];
   
   const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-16 h-16",
+    sm: "w-6 h-6",
+    md: "w-8 h-8",
+    lg: "w-10 h-10",
   };
-
-  const iconSizes = {
-    sm: 14,
-    md: 24,
-    lg: 32,
-  };
-
-  const levelIndicator = level > 1 ? (
-    <div className={cn(
-      "absolute -bottom-1 -right-1 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-xs font-bold text-secondary-foreground",
-      size === "sm" && "h-4 w-4 text-[10px]",
-      size === "md" && "h-5 w-5",
-      size === "lg" && "h-6 w-6"
-    )}>
-      {level}
-    </div>
-  ) : null;
 
   const badge = (
     <div 
       className={cn(
-        "relative flex items-center justify-center rounded-full",
+        "relative flex items-center justify-center rounded-md border",
         unlocked 
-          ? `bg-gradient-to-br ${config.color}` 
-          : "bg-muted text-muted-foreground",
-        unlocked ? "" : "opacity-50",
+          ? "border-border bg-background text-foreground" 
+          : "border-border/40 bg-secondary/50 text-muted-foreground",
         sizeClasses[size],
         className
       )}
     >
       {React.cloneElement(config.icon as React.ReactElement, { 
-        size: iconSizes[size],
-        className: "text-white"
+        className: cn(unlocked ? "" : "opacity-50")
       })}
-      {levelIndicator}
+      {level > 1 && (
+        <div className={cn(
+          "absolute -right-1 -top-1 flex items-center justify-center rounded-full border border-background bg-secondary text-xs font-medium",
+          size === "sm" ? "h-3.5 w-3.5 text-[8px]" : "h-4 w-4 text-[10px]"
+        )}>
+          {level}
+        </div>
+      )}
     </div>
   );
 
@@ -171,15 +147,15 @@ export function AchievementBadge({
           <TooltipTrigger asChild>
             {badge}
           </TooltipTrigger>
-          <TooltipContent side="top">
-            <div className="text-center">
-              <p className="font-bold">{config.name}</p>
-              <p className="text-xs text-muted-foreground">{config.description}</p>
+          <TooltipContent side="top" className="text-xs">
+            <div>
+              <p className="font-medium">{config.name}</p>
+              <p className="text-muted-foreground">{config.description}</p>
               {level > 1 && (
-                <p className="mt-1 text-xs font-semibold">Level {level}</p>
+                <p className="mt-0.5 font-medium">Level {level}</p>
               )}
               {!unlocked && (
-                <p className="mt-1 text-xs italic text-muted-foreground">Locked</p>
+                <p className="mt-0.5 italic text-muted-foreground">Locked</p>
               )}
             </div>
           </TooltipContent>

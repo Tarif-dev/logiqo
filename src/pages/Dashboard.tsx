@@ -6,7 +6,7 @@ import { XpProgress } from "@/components/XpProgress";
 import { AchievementBadge } from "@/components/AchievementBadge";
 import { LessonCard } from "@/components/LessonCard";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -20,6 +20,10 @@ import {
   Brain,
   Zap,
   BarChart2,
+  Sparkles,
+  BookOpen,
+  Code,
+  ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -28,104 +32,88 @@ export default function Dashboard() {
     <div className="flex min-h-screen flex-col">
       <Navbar isAuthenticated={true} />
 
-      <main className="container mx-auto flex-1 py-8">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <main className="container py-8">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Hey, Alex! 👋</h1>
-            <p className="text-muted-foreground">
-              Continue your DSA journey from where you left off.
+            <h1 className="text-xl font-medium sm:text-2xl">Welcome back, Alex</h1>
+            <p className="text-sm text-muted-foreground">
+              Continue your DSA journey where you left off
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <Link to="/roadmap">
-              <Button variant="outline">
-                View Roadmap
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/playground">
-              <Button>
-                Code Playground
-                <Code className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" size="sm" asChild className="h-8">
+              <Link to="/roadmap">
+                <span>Roadmap</span>
+                <ChevronRight className="ml-1 h-3 w-3" />
+              </Link>
+            </Button>
+            <Button size="sm" asChild className="h-8">
+              <Link to="/playground">
+                <Code className="mr-1 h-3.5 w-3.5" />
+                <span>Playground</span>
+              </Link>
+            </Button>
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3">
           {/* Main Content */}
-          <div className="md:col-span-2 space-y-6">
+          <div className="space-y-6 lg:col-span-2">
             {/* Progress Overview */}
-            <Card className="p-6">
-              <h2 className="mb-4 text-xl font-semibold">Your Progress</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <XpProgress
-                    variant="dashboard"
-                    currentXp={650}
-                    levelXp={1000}
-                    level={4}
-                  />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <XpProgress
+                variant="dashboard"
+                currentXp={650}
+                levelXp={1000}
+                level={4}
+              />
+              <div className="space-y-3 rounded-md border border-border/60 p-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="flex items-center gap-2 text-sm font-medium">
+                    <Trophy size={16} className="text-muted-foreground" />
+                    <span>Progress</span>
+                  </h3>
                 </div>
-                <div className="space-y-4">
+                
+                <div className="space-y-3">
                   <div>
-                    <div className="mb-1 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Trophy size={16} className="text-amber-500" />
-                        <span className="text-sm font-medium">
-                          Arrays & Strings Mastery
-                        </span>
-                      </div>
-                      <span className="text-xs font-medium">75%</span>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-xs">Arrays & Strings</span>
+                      <span className="text-xs text-muted-foreground">75%</span>
                     </div>
-                    <Progress value={75} className="h-2" />
+                    <Progress value={75} className="h-1.5" />
                   </div>
                   <div>
-                    <div className="mb-1 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Flame size={16} className="text-red-500" />
-                        <span className="text-sm font-medium">
-                          Daily Streak
-                        </span>
-                      </div>
-                      <span className="text-xs font-medium">7 days</span>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-xs">Daily Streak</span>
+                      <span className="text-xs text-muted-foreground">7 days</span>
                     </div>
-                    <Progress
-                      value={70}
-                      className="h-2 bg-muted [&>*]:bg-red-500"
-                    />
+                    <Progress value={70} className="h-1.5 bg-muted [&>*]:bg-red-500" />
                   </div>
                   <div>
-                    <div className="mb-1 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Target size={16} className="text-green-500" />
-                        <span className="text-sm font-medium">
-                          Weekly Goals
-                        </span>
-                      </div>
-                      <span className="text-xs font-medium">3/5 completed</span>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-xs">Weekly Goals</span>
+                      <span className="text-xs text-muted-foreground">3/5 completed</span>
                     </div>
-                    <Progress
-                      value={60}
-                      className="h-2 bg-muted [&>*]:bg-green-500"
-                    />
+                    <Progress value={60} className="h-1.5 bg-muted [&>*]:bg-green-500" />
                   </div>
                 </div>
               </div>
-            </Card>
+            </div>
 
             {/* Continue Learning */}
             <div>
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Continue Learning</h2>
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-base font-medium">Continue Learning</h2>
                 <Link
                   to="/roadmap"
-                  className="text-sm text-primary hover:underline"
+                  className="text-xs text-muted-foreground hover:text-foreground"
                 >
-                  View All
+                  View all
+                  <ChevronRight className="ml-0.5 inline-block h-3 w-3" />
                 </Link>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <LessonCard
                   id="recursion-basics"
                   title="Recursion Basics"
@@ -148,63 +136,69 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Activity Tabs */}
-            <Card className="p-6">
-              <h2 className="mb-4 text-xl font-semibold">Recent Activity</h2>
-              <Tabs defaultValue="challenges">
-                <TabsList className="mb-4">
-                  <TabsTrigger value="challenges">Challenges</TabsTrigger>
-                  <TabsTrigger value="lessons">Lessons</TabsTrigger>
-                  <TabsTrigger value="practice">Practice</TabsTrigger>
+            <div className="border border-border/60 rounded-md">
+              <div className="border-b border-border/60 p-4">
+                <h2 className="text-base font-medium">Recent Activity</h2>
+              </div>
+              
+              <Tabs defaultValue="challenges" className="p-4 pt-2">
+                <TabsList className="grid w-full grid-cols-3 h-9 mb-3">
+                  <TabsTrigger value="challenges" className="text-xs">Challenges</TabsTrigger>
+                  <TabsTrigger value="lessons" className="text-xs">Lessons</TabsTrigger>
+                  <TabsTrigger value="practice" className="text-xs">Practice</TabsTrigger>
                 </TabsList>
-                <TabsContent value="challenges" className="space-y-4">
+                
+                <TabsContent value="challenges" className="space-y-2 pt-2">
                   <ActivityItem
-                    icon={<BarChart2 size={16} className="text-primary" />}
+                    icon={<BarChart2 size={14} />}
                     title="Two Sum Problem"
                     description="Completed in 12 minutes with optimal solution"
                     time="2 hours ago"
                     xp={75}
                   />
                   <ActivityItem
-                    icon={<Code size={16} className="text-indigo-500" />}
+                    icon={<Code size={14} />}
                     title="Valid Parentheses"
                     description="Completed with stack-based approach"
                     time="Yesterday"
                     xp={50}
                   />
                   <ActivityItem
-                    icon={<Brain size={16} className="text-purple-500" />}
+                    icon={<Brain size={14} />}
                     title="Maximum Subarray"
                     description="Used Kadane's algorithm successfully"
                     time="2 days ago"
                     xp={100}
                   />
                 </TabsContent>
-                <TabsContent value="lessons" className="space-y-4">
+                
+                <TabsContent value="lessons" className="space-y-2 pt-2">
                   <ActivityItem
-                    icon={<Code size={16} className="text-primary" />}
+                    icon={<BookOpen size={14} />}
                     title="Arrays and Time Complexity"
                     description="Completed the lesson and all exercises"
                     time="3 days ago"
                     xp={120}
                   />
                   <ActivityItem
-                    icon={<Code size={16} className="text-indigo-500" />}
+                    icon={<BookOpen size={14} />}
                     title="Hash Tables Deep Dive"
                     description="Completed 75% of the lesson"
                     time="5 days ago"
                     xp={90}
                   />
                 </TabsContent>
-                <TabsContent value="practice" className="space-y-4">
+                
+                <TabsContent value="practice" className="space-y-2 pt-2">
                   <ActivityItem
-                    icon={<Zap size={16} className="text-yellow-500" />}
+                    icon={<Zap size={14} />}
                     title="Daily Coding Challenge"
                     description="Completed in 8 minutes (top 15%)"
                     time="Today"
                     xp={25}
                   />
                   <ActivityItem
-                    icon={<Zap size={16} className="text-yellow-500" />}
+                    icon={<Zap size={14} />}
                     title="Weekly Contest"
                     description="Ranked 42nd out of 156 participants"
                     time="Last Sunday"
@@ -212,96 +206,91 @@ export default function Dashboard() {
                   />
                 </TabsContent>
               </Tabs>
-            </Card>
+            </div>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Profile Stats */}
-            <Card className="p-6">
-              <h2 className="mb-4 text-lg font-semibold">Your Stats</h2>
-              <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-md border border-border/60 p-4">
+              <h2 className="mb-3 text-sm font-medium">Your Stats</h2>
+              <div className="grid grid-cols-2 gap-3">
                 <StatCard
-                  icon={<Trophy className="h-5 w-5 text-amber-500" />}
+                  icon={<Trophy size={14} />}
                   label="Rank"
                   value="#512"
                 />
                 <StatCard
-                  icon={<Activity className="h-5 w-5 text-green-500" />}
+                  icon={<Activity size={14} />}
                   label="Problems"
                   value="38"
                 />
                 <StatCard
-                  icon={<Calendar className="h-5 w-5 text-blue-500" />}
+                  icon={<Calendar size={14} />}
                   label="Streak"
                   value="7 days"
                 />
                 <StatCard
-                  icon={<Clock className="h-5 w-5 text-indigo-500" />}
+                  icon={<Clock size={14} />}
                   label="Time"
                   value="24h 32m"
                 />
               </div>
-            </Card>
+            </div>
 
             {/* Achievements */}
-            <Card className="p-6">
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold">Achievements</h2>
+            <div className="rounded-md border border-border/60 p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-sm font-medium">Achievements</h2>
                 <Link
                   to="/profile/achievements"
-                  className="text-xs text-primary hover:underline"
+                  className="text-xs text-muted-foreground hover:text-foreground"
                 >
-                  View All
+                  View all
                 </Link>
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                <AchievementBadge type="first-time" />
-                <AchievementBadge type="streak" level={3} />
-                <AchievementBadge type="problem-solver" level={2} />
-                <AchievementBadge type="accuracy" level={4} />
-                <AchievementBadge type="speed" />
-                <AchievementBadge type="completion" level={2} />
-                <AchievementBadge type="contest-winner" unlocked={false} />
-                <AchievementBadge type="genius" unlocked={false} />
-                <AchievementBadge type="debug-master" unlocked={false} />
+              <div className="grid grid-cols-4 gap-2">
+                <AchievementBadge type="first-time" size="sm" />
+                <AchievementBadge type="streak" level={3} size="sm" />
+                <AchievementBadge type="problem-solver" level={2} size="sm" />
+                <AchievementBadge type="accuracy" level={4} size="sm" />
+                <AchievementBadge type="speed" size="sm" />
+                <AchievementBadge type="completion" level={2} size="sm" />
+                <AchievementBadge type="contest-winner" unlocked={false} size="sm" />
+                <AchievementBadge type="genius" unlocked={false} size="sm" />
               </div>
-            </Card>
+            </div>
 
             {/* Upcoming Contests */}
-            <Card className="p-6">
-              <h2 className="mb-4 text-lg font-semibold">Upcoming Contests</h2>
-              <div className="space-y-4">
-                <div className="rounded-lg border p-3">
+            <div className="rounded-md border border-border/60 p-4">
+              <h2 className="mb-3 text-sm font-medium">Upcoming Contests</h2>
+              <div className="space-y-3">
+                <div className="rounded border border-border/40 p-3">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-medium">Weekly Challenge</h4>
-                    <span className="rounded-full bg-yellow-500/10 px-2 py-1 text-xs font-medium text-yellow-600">
-                      In 2 days
-                    </span>
+                    <h4 className="text-sm font-medium">Weekly Challenge</h4>
+                    <Badge variant="outline" className="text-xs px-1.5 py-0 h-5">In 2 days</Badge>
                   </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     Array manipulation and string algorithms
                   </p>
-                  <Button variant="link" className="mt-2 h-auto p-0 text-sm">
+                  <Button variant="link" className="mt-1 h-auto p-0 text-xs">
                     Set Reminder
                   </Button>
                 </div>
-                <div className="rounded-lg border p-3">
+                <div className="rounded border border-border/40 p-3">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-medium">Graph Theory Contest</h4>
-                    <span className="rounded-full bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-600">
-                      Next week
-                    </span>
+                    <h4 className="text-sm font-medium">Graph Theory Contest</h4>
+                    <Badge variant="outline" className="text-xs px-1.5 py-0 h-5">Next week</Badge>
                   </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     BFS, DFS, and shortest path algorithms
                   </p>
-                  <Button variant="link" className="mt-2 h-auto p-0 text-sm">
+                  <Button variant="link" className="mt-1 h-auto p-0 text-xs">
                     Register Now
                   </Button>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </main>
@@ -327,17 +316,19 @@ function ActivityItem({
   xp,
 }: ActivityItemProps) {
   return (
-    <div className="flex items-start space-x-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
-      <div className="mt-0.5 rounded-full bg-muted p-1.5">{icon}</div>
+    <div className="group flex items-start space-x-3 rounded border border-border/40 p-3 transition-colors hover:border-border hover:bg-secondary/30">
+      <div className="mt-0.5 rounded bg-secondary/50 p-1">
+        {icon}
+      </div>
       <div className="flex-1">
         <div className="flex items-center justify-between">
-          <h4 className="font-medium">{title}</h4>
-          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+          <h4 className="text-sm font-medium">{title}</h4>
+          <Badge variant="outline" className="h-4 border-primary/20 bg-primary/5 px-1 text-[10px] font-normal text-primary">
             +{xp} XP
-          </span>
+          </Badge>
         </div>
-        <p className="text-sm text-muted-foreground">{description}</p>
-        <p className="mt-1 text-xs text-muted-foreground">{time}</p>
+        <p className="text-xs text-muted-foreground">{description}</p>
+        <p className="mt-1 text-[10px] text-muted-foreground">{time}</p>
       </div>
     </div>
   );
@@ -351,31 +342,12 @@ interface StatCardProps {
 
 function StatCard({ icon, label, value }: StatCardProps) {
   return (
-    <div className="flex flex-col items-center rounded-lg border p-3 text-center">
-      <div className="mb-2 rounded-full bg-muted/50 p-2">{icon}</div>
-      <span className="text-lg font-bold">{value}</span>
-      <span className="text-xs text-muted-foreground">{label}</span>
+    <div className="flex flex-col items-center rounded border border-border/40 p-2 text-center">
+      <div className="mb-1 rounded bg-secondary/50 p-1">
+        {icon}
+      </div>
+      <span className="text-sm font-medium">{value}</span>
+      <span className="text-[10px] text-muted-foreground">{label}</span>
     </div>
-  );
-}
-
-// For brevity, adding a Code icon component to avoid imports issues
-function Code({ size = 24, className }: { size?: number; className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-    </svg>
   );
 }

@@ -3,20 +3,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { LogiqoLogo } from "@/components/LogiqoLogo";
-import { AchievementBadge } from "@/components/AchievementBadge";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   ArrowRight, 
   Code, 
   Brain, 
   Trophy, 
-  Sparkles,
   Compass,
   CheckCircle,
   MessageSquare,
   PencilRuler,
-  Rocket
+  Rocket,
+  BarChart,
+  ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,178 +26,122 @@ export default function Index() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background to-background/80 pt-16 md:pt-24">
-        <div className="container relative z-10 mx-auto grid gap-8 py-16 md:grid-cols-2 md:gap-12 md:py-24">
-          <div className="flex flex-col justify-center space-y-6">
-            <div className="animate-appear space-y-2">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-                Master DSA, <span className="text-primary glow-text">Fearlessly</span>
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Visual, gamified, interactive learning that makes algorithms fun and unforgettable.
-              </p>
-            </div>
-            
-            <div className="animate-appear delay-100 flex flex-col items-start space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+      <section className="relative py-16 md:py-24">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <Badge className="mb-4" variant="outline">New: Interactive Algorithm Visualizations</Badge>
+            <h1 className="mb-4 text-3xl font-medium tracking-tight md:text-5xl">
+              Learn Data Structures & Algorithms, <span className="italic">intuitively</span>
+            </h1>
+            <p className="mb-6 text-base text-muted-foreground md:text-lg">
+              A modern approach to mastering DSA — visual, interactive, and effective. Learn at your own pace with step-by-step guidance.
+            </p>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <Button size="lg" asChild>
-                <Link to="/signup">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                <Link to="/signup">Get started</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link to="/roadmap">Explore Learning Paths</Link>
+                <Link to="/roadmap">Explore the roadmap</Link>
               </Button>
-            </div>
-            
-            <div className="animate-appear delay-200 flex items-center space-x-4 text-sm text-muted-foreground">
-              <div className="flex items-center">
-                <CheckCircle className="mr-1 h-4 w-4 text-green-500" />
-                <span>Interactive Learning</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="mr-1 h-4 w-4 text-green-500" />
-                <span>Visual Algorithms</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="mr-1 h-4 w-4 text-green-500" />
-                <span>AI Assistant</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center justify-center">
-            <div className="animate-float relative aspect-square w-full max-w-md overflow-hidden rounded-2xl bg-gradient-to-br from-logiqo-indigo via-logiqo-blue to-logiqo-indigo p-1">
-              <div className="glass-card h-full w-full">
-                <div className="relative flex h-full w-full flex-col items-center justify-center p-8">
-                  <LogiqoLogo size="xl" variant="glow" />
-                  <div className="mt-6 grid grid-cols-3 gap-3">
-                    <AchievementBadge type="first-time" />
-                    <AchievementBadge type="streak" level={3} />
-                    <AchievementBadge type="problem-solver" level={2} />
-                    <AchievementBadge type="speed" />
-                    <AchievementBadge type="accuracy" level={4} />
-                    <AchievementBadge type="completion" level={2} />
-                  </div>
-                  <div className="mt-8 w-full rounded-lg bg-card/30 p-3">
-                    <div className="mb-2 h-2 w-3/4 rounded bg-primary/20"></div>
-                    <div className="mb-2 h-2 w-full rounded bg-primary/20"></div>
-                    <div className="h-2 w-2/3 rounded bg-primary/20"></div>
-                  </div>
-                  <Sparkles 
-                    className="absolute -right-4 bottom-10 h-24 w-24 rotate-12 text-logiqo-mint opacity-20" 
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>
-        
-        {/* Abstract background shapes */}
-        <div className="absolute -bottom-48 left-0 right-0 h-64 bg-gradient-to-t from-background to-transparent"></div>
-        <div className="absolute -left-20 top-40 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div className="absolute -right-20 top-60 h-72 w-72 rounded-full bg-secondary/10 blur-3xl"></div>
       </section>
       
       {/* Features Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto">
+      <section className="py-16 md:py-24 bg-secondary/30">
+        <div className="container">
           <div className="mx-auto mb-12 max-w-2xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Learning DSA Shouldn't Be Painful
+            <Badge className="mb-3" variant="outline">Our approach</Badge>
+            <h2 className="mb-4 text-2xl font-medium md:text-3xl">
+              Learn effectively with a modern approach
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Our unique approach combines visual learning, interactive challenges, 
-              and gamification to make algorithm mastery genuinely enjoyable.
+            <p className="text-muted-foreground">
+              Our platform combines visual learning, interactive challenges, and practical applications to make DSA accessible to everyone.
             </p>
           </div>
           
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <FeatureCard 
-              icon={<PencilRuler className="h-10 w-10 text-logiqo-blue" />}
+              icon={<PencilRuler />}
               title="Visual Learning" 
-              description="See algorithms in action with step-by-step animations that bring abstract concepts to life."
+              description="See algorithms in action with animated visualizations that bring abstract concepts to life."
             />
             <FeatureCard 
-              icon={<Code className="h-10 w-10 text-logiqo-indigo" />}
-              title="Interactive Playground" 
-              description="Write, test, and visualize your code with our interactive editor and algorithm visualizer."
+              icon={<Code />}
+              title="Interactive Practice" 
+              description="Write, test, and visualize code with our interactive editor and algorithm sandbox."
             />
             <FeatureCard 
-              icon={<Trophy className="h-10 w-10 text-amber-500" />}
-              title="Gamified Experience" 
-              description="Earn XP, badges, and level up as you conquer increasingly complex algorithms."
+              icon={<Trophy />}
+              title="Progress Tracking" 
+              description="Track your learning journey with achievements, statistics and personalized insights."
             />
             <FeatureCard 
-              icon={<Brain className="h-10 w-10 text-logiqo-mint" />}
+              icon={<Brain />}
               title="AI-Powered Help" 
-              description="Get unstuck with our intelligent assistant that helps debug and explain concepts."
+              description="Get unstuck with intelligent assistance that offers custom explanations and hints."
             />
             <FeatureCard 
-              icon={<Rocket className="h-10 w-10 text-pink-500" />}
-              title="Structured Roadmap" 
-              description="Follow a clear learning path from the basics to advanced mastery with unlockable content."
+              icon={<Compass />}
+              title="Structured Path" 
+              description="Follow a clear learning path from fundamentals to advanced topics with guided progression."
             />
             <FeatureCard 
-              icon={<MessageSquare className="h-10 w-10 text-emerald-500" />}
+              icon={<MessageSquare />}
               title="Community Support" 
-              description="Learn together with discussions, challenges, and peer support in our community."
+              description="Learn together with discussions, peer code reviews, and collaborative challenges."
             />
           </div>
         </div>
       </section>
       
       {/* Learning Path Section */}
-      <section className="bg-muted/30 py-16 md:py-24">
-        <div className="container mx-auto">
+      <section className="py-16 md:py-24">
+        <div className="container">
           <div className="mx-auto mb-12 max-w-2xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Your DSA Journey Made Clear
+            <Badge className="mb-3" variant="outline">Learning path</Badge>
+            <h2 className="mb-4 text-2xl font-medium md:text-3xl">
+              A clear path to DSA mastery
             </h2>
-            <p className="text-lg text-muted-foreground">
-              From zero to hero with our structured learning paths tailored to your goals.
+            <p className="text-muted-foreground">
+              From core basics to advanced algorithms, our structured curriculum guides your learning journey step by step.
             </p>
           </div>
           
-          <div className="mx-auto max-w-4xl">
-            <div className="relative">
-              <div className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 bg-muted"></div>
-              <RoadmapItem 
-                number={1} 
-                title="Foundations" 
-                description="Master the core concepts: arrays, strings, basic recursion, and time complexity."
-                isCompleted={true}
-              />
-              <RoadmapItem 
-                number={2} 
-                title="Data Structures" 
-                description="Learn linked lists, stacks, queues, trees, and graphs through visualizations."
-                isActive={true}
-              />
-              <RoadmapItem 
-                number={3} 
-                title="Algorithmic Techniques" 
-                description="Dive into searching, sorting, divide & conquer, and greedy algorithms."
-              />
-              <RoadmapItem 
-                number={4} 
-                title="Advanced Topics" 
-                description="Tackle dynamic programming, advanced graphs, and hard algorithmic problems."
-                isLocked={true}
-              />
-              <RoadmapItem 
-                number={5} 
-                title="Mastery & Challenges" 
-                description="Apply your skills to complex real-world problems and competitive programming."
-                isLocked={true}
-              />
-            </div>
+          <div className="mx-auto max-w-3xl space-y-3">
+            <PathItem 
+              number="01" 
+              title="Fundamentals" 
+              description="Arrays, strings, complexity analysis, and basic problem-solving patterns."
+              isActive
+            />
+            <PathItem 
+              number="02" 
+              title="Data Structures" 
+              description="Linked lists, stacks, queues, trees, graphs, and hash tables."
+            />
+            <PathItem 
+              number="03" 
+              title="Algorithms" 
+              description="Searching, sorting, recursion, and essential algorithm techniques."
+            />
+            <PathItem 
+              number="04" 
+              title="Advanced Topics" 
+              description="Dynamic programming, graph algorithms, and complex problem-solving."
+            />
+            <PathItem 
+              number="05" 
+              title="Real-world Applications" 
+              description="System design, optimization, and practical implementation challenges."
+            />
             
-            <div className="mt-12 text-center">
-              <Button size="lg" asChild>
+            <div className="pt-8 text-center">
+              <Button asChild variant="outline" size="lg">
                 <Link to="/roadmap">
-                  <Compass className="mr-2 h-4 w-4" />
-                  Explore Full Learning Path
+                  <span>View detailed roadmap</span>
+                  <ChevronRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -206,26 +150,22 @@ export default function Index() {
       </section>
       
       {/* CTA Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <div className="rounded-2xl bg-gradient-to-br from-logiqo-blue to-logiqo-indigo p-1">
-            <div className="flex flex-col items-center justify-between rounded-xl bg-card/95 p-8 backdrop-blur-sm md:flex-row md:p-12">
-              <div className="mb-6 md:mb-0 md:max-w-md">
-                <h2 className="mb-3 text-2xl font-bold md:text-3xl">
-                  Ready to Master Algorithms?
-                </h2>
-                <p className="text-muted-foreground">
-                  Join thousands of learners who've transformed their DSA skills through our interactive platform.
-                </p>
-              </div>
-              <div className="flex flex-col space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
-                <Button size="lg" asChild>
-                  <Link to="/signup">Get Started Free</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/demo">See Demo</Link>
-                </Button>
-              </div>
+      <section className="py-16 md:py-24 bg-secondary/30">
+        <div className="container">
+          <div className="mx-auto max-w-2xl rounded-lg border border-border/60 bg-background p-8 text-center">
+            <h2 className="mb-3 text-xl font-medium md:text-2xl">
+              Ready to master algorithms?
+            </h2>
+            <p className="mb-6 text-muted-foreground">
+              Join thousands who've transformed their DSA skills through our interactive platform.
+            </p>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <Button asChild>
+                <Link to="/signup">Get started free</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/demo">See demo</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -236,91 +176,46 @@ export default function Index() {
   );
 }
 
-interface FeatureCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
-
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
+// Feature Card Component
+function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
   return (
-    <div className="hover-scale rounded-xl border bg-card p-6 shadow-sm">
-      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-muted/50">
+    <div className="rounded-lg border border-border/60 bg-background p-5">
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-md border border-border/60 bg-secondary/50">
         {icon}
       </div>
-      <h3 className="mb-2 text-xl font-semibold">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+      <h3 className="mb-2 text-base font-medium">{title}</h3>
+      <p className="text-sm text-muted-foreground">{description}</p>
     </div>
   );
 }
 
-interface RoadmapItemProps {
-  number: number;
-  title: string;
-  description: string;
-  isCompleted?: boolean;
-  isActive?: boolean;
-  isLocked?: boolean;
-}
-
-function RoadmapItem({ 
+// Path Item Component
+function PathItem({ 
   number, 
   title, 
   description, 
-  isCompleted = false,
-  isActive = false,
-  isLocked = false 
-}: RoadmapItemProps) {
+  isActive = false
+}: { 
+  number: string, 
+  title: string, 
+  description: string,
+  isActive?: boolean
+}) {
   return (
-    <div className="relative mb-12">
-      <div className={cn(
-        "absolute left-1/2 top-0 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-4 border-background",
-        isCompleted ? "bg-green-500" : 
-        isActive ? "bg-primary" : 
-        isLocked ? "bg-muted" : "bg-secondary"
-      )}>
-        {isCompleted ? (
-          <CheckCircle className="h-5 w-5 text-white" />
-        ) : (
-          <span className={cn(
-            "text-sm font-bold",
-            isLocked ? "text-muted-foreground" : "text-white"
-          )}>{number}</span>
-        )}
+    <div className={cn(
+      "flex gap-4 rounded-lg border p-4 transition-colors",
+      isActive ? "border-primary/20 bg-primary/5" : "border-border/60"
+    )}>
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-border/60 bg-secondary/50 text-sm font-medium">
+        {number}
       </div>
-      
-      <div className={cn(
-        "ml-16 md:ml-24",
-        isLocked && "opacity-60"
-      )}>
+      <div>
         <h3 className={cn(
-          "mb-2 text-xl font-semibold",
+          "text-base font-medium",
           isActive && "text-primary"
-        )}>
-          {title}
-          {isLocked && <Lock className="ml-2 inline h-4 w-4" />}
-        </h3>
-        <p className="text-muted-foreground">{description}</p>
+        )}>{title}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
       </div>
     </div>
-  );
-}
-
-// This is needed to prevent errors from the Lock component used in RoadmapItem
-function Lock({ className }: { className?: string }) {
-  return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className}
-    >
-      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
   );
 }

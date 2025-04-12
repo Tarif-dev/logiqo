@@ -1,61 +1,65 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { LogiqoLogo } from "@/components/LogiqoLogo";
-import { Linkedin, Twitter, Github, Youtube } from "lucide-react";
+import { ExternalLink, Github, Twitter, MessageSquare } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-border/40 bg-background py-12">
-      <div className="container grid gap-8 md:grid-cols-3 lg:grid-cols-4">
-        <div className="flex flex-col gap-4">
-          <LogiqoLogo />
-          <p className="text-sm text-muted-foreground">
-            Making Data Structures and Algorithms learning fearless, fun, and unforgettable.
-          </p>
-          <div className="flex items-center space-x-3">
-            <SocialLink href="https://twitter.com" icon={<Twitter size={18} />} label="Twitter" />
-            <SocialLink href="https://linkedin.com" icon={<Linkedin size={18} />} label="LinkedIn" />
-            <SocialLink href="https://github.com" icon={<Github size={18} />} label="GitHub" />
-            <SocialLink href="https://youtube.com" icon={<Youtube size={18} />} label="YouTube" />
+    <footer className="w-full border-t border-border/10 bg-background py-8">
+      <div className="container">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+          <div>
+            <h4 className="mb-3 text-sm font-medium">Platform</h4>
+            <ul className="space-y-2">
+              <FooterLink to="/roadmap">Roadmap</FooterLink>
+              <FooterLink to="/playground">Playground</FooterLink>
+              <FooterLink to="/challenges">Challenges</FooterLink>
+              <FooterLink to="/community">Community</FooterLink>
+              <FooterLink to="/resources">Resources</FooterLink>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-3 text-sm font-medium">Account</h4>
+            <ul className="space-y-2">
+              <FooterLink to="/login">Login</FooterLink>
+              <FooterLink to="/signup">Sign Up</FooterLink>
+              <FooterLink to="/settings">Settings</FooterLink>
+              <FooterLink to="/profile">Profile</FooterLink>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-3 text-sm font-medium">Company</h4>
+            <ul className="space-y-2">
+              <FooterLink to="/about">About</FooterLink>
+              <FooterLink to="/blog">Blog</FooterLink>
+              <FooterLink to="/careers">Careers</FooterLink>
+              <FooterLink to="/contact">Contact</FooterLink>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-3 text-sm font-medium">Legal</h4>
+            <ul className="space-y-2">
+              <FooterLink to="/terms">Terms</FooterLink>
+              <FooterLink to="/privacy">Privacy</FooterLink>
+              <FooterLink to="/cookies">Cookies</FooterLink>
+              <FooterLink to="/licenses">Licenses</FooterLink>
+            </ul>
           </div>
         </div>
 
-        <div>
-          <h4 className="mb-4 text-lg font-semibold">Platform</h4>
-          <ul className="space-y-2 text-sm">
-            <FooterLink to="/roadmap">Learning Paths</FooterLink>
-            <FooterLink to="/playground">Code Playground</FooterLink>
-            <FooterLink to="/challenges">Challenges</FooterLink>
-            <FooterLink to="/ai-assistant">AI Assistant</FooterLink>
-            <FooterLink to="/contests">Contests</FooterLink>
-          </ul>
+        <div className="mt-8 flex flex-col justify-between border-t border-border/10 pt-8 sm:flex-row sm:items-center">
+          <p className="mb-4 text-xs text-muted-foreground sm:mb-0">
+            &copy; {new Date().getFullYear()} DSA Learning Platform. All rights reserved.
+          </p>
+          <div className="flex space-x-4">
+            <SocialLink href="https://twitter.com" icon={<Twitter size={16} />} label="Twitter" />
+            <SocialLink href="https://github.com" icon={<Github size={16} />} label="GitHub" />
+            <SocialLink href="https://discord.com" icon={<MessageSquare size={16} />} label="Discord" />
+          </div>
         </div>
-
-        <div>
-          <h4 className="mb-4 text-lg font-semibold">Community</h4>
-          <ul className="space-y-2 text-sm">
-            <FooterLink to="/forum">Forum</FooterLink>
-            <FooterLink to="/study-groups">Study Groups</FooterLink>
-            <FooterLink to="/events">Events</FooterLink>
-            <FooterLink to="/blog">Blog</FooterLink>
-            <FooterLink to="/contribute">Contribute</FooterLink>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="mb-4 text-lg font-semibold">Company</h4>
-          <ul className="space-y-2 text-sm">
-            <FooterLink to="/about">About Us</FooterLink>
-            <FooterLink to="/careers">Careers</FooterLink>
-            <FooterLink to="/contact">Contact</FooterLink>
-            <FooterLink to="/privacy">Privacy</FooterLink>
-            <FooterLink to="/terms">Terms</FooterLink>
-          </ul>
-        </div>
-      </div>
-      <div className="container mt-12 text-center text-sm text-muted-foreground">
-        &copy; {new Date().getFullYear()} Logiqo. All rights reserved.
       </div>
     </footer>
   );
@@ -71,7 +75,7 @@ function FooterLink({ to, children }: FooterLinkProps) {
     <li>
       <Link
         to={to}
-        className="text-muted-foreground transition-colors hover:text-foreground"
+        className="text-xs text-muted-foreground transition-colors hover:text-foreground"
       >
         {children}
       </Link>
@@ -91,7 +95,7 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="rounded-full bg-muted p-2 text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+      className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
       aria-label={label}
     >
       {icon}
