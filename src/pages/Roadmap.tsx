@@ -1071,11 +1071,11 @@ const Roadmap: React.FC = () => {
     return roadmapData;
   };
 
-  // Toggle category expansion
+  // Toggle category filter
   const toggleCategory = (category: string) => {
-    // Set the filter instead of expanding
-    setSelectedFilter(selectedFilter === category ? null : category);
-    // Reset other states
+    // Toggle the filter
+    setSelectedFilter(prevFilter => prevFilter === category ? null : category);
+    // Reset other states when changing filters
     setExpandedCategory(null);
     setSelectedNode(null);
     setHighlightedPath([]);
@@ -1203,7 +1203,7 @@ const Roadmap: React.FC = () => {
                   <Badge 
                     key={category}
                     variant={selectedFilter === category ? "default" : "outline"}
-                    className="cursor-pointer px-3 py-1 text-xs font-medium"
+                    className="cursor-pointer px-3 py-1 text-xs font-medium hover:bg-muted/50"
                     onClick={() => toggleCategory(category)}
                   >
                     {category}
@@ -1214,7 +1214,7 @@ const Roadmap: React.FC = () => {
               <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Connection lines between nodes */}
                 {roadmapConnections.map((connection, i) => {
-                  // Only show connections related to expanded category
+                  // Only show connections related to expanded category or filtered view
                   const fromNode = roadmapData.find(n => n.id === connection.from);
                   const toNode = roadmapData.find(n => n.id === connection.to);
                   
