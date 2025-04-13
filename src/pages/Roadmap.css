@@ -1,9 +1,8 @@
 
 /* Optional CSS enhancements for the Roadmap page */
-/* Static highlight for selected nodes */
+/* Removed pulse animation for selected nodes */
 .selected-node {
   box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.4);
-  /* No animation or blinking effect */
 }
 
 .path-line {

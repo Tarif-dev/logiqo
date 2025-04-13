@@ -1071,11 +1071,11 @@ const Roadmap: React.FC = () => {
     return roadmapData;
   };
 
-  // Toggle category filter
+  // Toggle category expansion
   const toggleCategory = (category: string) => {
-    // Toggle the filter
-    setSelectedFilter(prevFilter => prevFilter === category ? null : category);
-    // Reset other states when changing filters
+    // Set the filter instead of expanding
+    setSelectedFilter(selectedFilter === category ? null : category);
+    // Reset other states
     setExpandedCategory(null);
     setSelectedNode(null);
     setHighlightedPath([]);
@@ -1203,7 +1203,7 @@ const Roadmap: React.FC = () => {
                   <Badge 
                     key={category}
                     variant={selectedFilter === category ? "default" : "outline"}
-                    className="cursor-pointer px-3 py-1 text-xs font-medium hover:bg-muted/50"
+                    className="cursor-pointer px-3 py-1 text-xs font-medium"
                     onClick={() => toggleCategory(category)}
                   >
                     {category}
@@ -1214,13 +1214,13 @@ const Roadmap: React.FC = () => {
               <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 {/* Connection lines between nodes */}
                 {roadmapConnections.map((connection, i) => {
-                  // Only show connections related to expanded category or filtered view
+                  // Only show connections related to expanded category
                   const fromNode = roadmapData.find(n => n.id === connection.from);
                   const toNode = roadmapData.find(n => n.id === connection.to);
                   
                   if (!fromNode || !toNode) return null;
                   
-                  // Skip if not in the current filter
+                  // Skip if not in the current category or connected to the current category
                   if (selectedFilter && 
                       fromNode.category !== selectedFilter && 
                       toNode.category !== selectedFilter) {
@@ -1248,10 +1248,68 @@ const Roadmap: React.FC = () => {
               </svg>
               
               <div className="relative z-10">
-                {selectedFilter ? (
-                  // Show nodes filtered by category
+                {expandedCategory ? (
+                  // Show nodes from selected category
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {getFilteredNodes().map((node, i) => (
+                    {getNodesByCategory(expandedCategory).map((node, i) => (
+                      <motion.div
+                        id={`node-${node.id}`}
+                        key={node.id}
+                        custom={i}
+                        initial="hidden"
+                        animate="visible"
+                        variants={nodeVariants}
+                        onClick={() => handleNodeClick(node)}
+                        className={`cursor-pointer p-4 rounded-md border transition-all duration-300 ${
+                          selectedNode?.id === node.id 
+                            ? "ring-2 ring-primary ring-offset-2 shadow-lg transform scale-105 selected-node" 
+                            : "hover:shadow-md hover:translate-y-[-2px]"
+                        } ${
+                          node.status === "locked" ? "opacity-50" : ""
+                        } ${
+                          highlightedPath.includes(node.id) 
+                            ? "border-purple-500/50 bg-purple-500/5" 
+                            : "border-border/60 bg-card"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`flex h-10 w-10 items-center justify-center rounded-md ${getStatusColor(node.status)}`}>
+                            {node.status === "locked" ? (
+                              <Lock size={18} />
+                            ) : node.status === "completed" ? (
+                              <Check size={18} />
+                            ) : (
+                              <node.icon size={18} />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-sm font-medium">{node.title}</h3>
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{node.description}</p>
+                            <div className="mt-2 flex items-center gap-1.5 flex-wrap">
+                              <Badge variant="outline" className={`px-1.5 py-0 h-4 text-[10px] ${getDifficultyColor(node.difficulty)}`}>
+                                {node.difficulty}
+                              </Badge>
+                              {node.status !== "locked" && (
+                                <Badge variant="secondary" className="px-1.5 py-0 h-4 text-[10px]">
+                                  <Sparkles size={10} className="mr-0.5" />
+                                  {node.xpReward} XP
+                                </Badge>
+                              )}
+                              {node.subtopics && (
+                                <Badge variant="outline" className="px-1.5 py-0 h-4 text-[10px] bg-blue-500/10 text-blue-500 border-blue-500/20">
+                                  {node.subtopics.length} subtopics
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : selectedFilter ? (
+                  // Show filtered nodes
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {getNodesByCategory(selectedFilter).map((node, i) => (
                       <motion.div
                         id={`node-${node.id}`}
                         key={node.id}
